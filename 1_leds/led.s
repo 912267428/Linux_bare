@@ -60,3 +60,6 @@ str r1,[r0]
 
 loop:
     b loop
+    
+    
+    
