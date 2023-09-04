@@ -1,5 +1,5 @@
 CROSS_COMPILE 	?= arm-linux-gnueabihf-
-TARGET		  	?= bsp
+TARGET		  	?= beep
 
 CC 				:= $(CROSS_COMPILE)gcc
 LD				:= $(CROSS_COMPILE)ld
@@ -34,6 +34,8 @@ OBJS			:= $(SOBJS) $(COBJS)
 VPATH			:= $(SRCDIRS)
 
 .PHONY: clean
+
+.PHONY: cleana
 	
 $(TARGET).bin : $(OBJS)
 	$(LD) -Timx6ul.lds -o $(TARGET).elf $^
@@ -46,7 +48,9 @@ $(SOBJS) : obj/%.o : %.S
 $(COBJS) : obj/%.o : %.c
 	$(CC) -Wall -nostdlib -c -O2  $(INCLUDE) -o $@ $<
 	
-clean:
+cleana:
 	rm -rf $(TARGET).elf $(TARGET).dis $(TARGET).bin $(COBJS) $(SOBJS)
 
+clean:
+	rm -rf $(TARGET).elf $(TARGET).dis $(COBJS) $(SOBJS)
 	
