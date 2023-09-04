@@ -6,10 +6,10 @@ LD				:= $(CROSS_COMPILE)ld
 OBJCOPY			:= $(CROSS_COMPILE)objcopy
 OBJDUMP 		:= $(CROSS_COMPILE)objdump
 
-OBJS	:= start.i main.o
+OBJS	:= start.o main.o
 
 $(NAME).bin: $(OBJS)
-	$(LD) -Timx6ul.lds -0 $(NAME).elf $^
+	$(LD) -Timx6ul.lds -o $(NAME).elf $^
 	$(OBJCOPY) -O binary -S $(NAME).elf $@
 	$(OBJDUMP) -D -m arm $(NAME).elf > $(NAME).dis
 
