@@ -12,7 +12,7 @@ int main(void)
     unsigned char led_state = OFF;
     unsigned char beep_state = OFF;
 
-    imux6u_clkinit();
+    imx6u_clkinit();
     clk_enable();
     led_init();
     beep_init();
