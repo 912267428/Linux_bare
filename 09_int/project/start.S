@@ -127,13 +127,13 @@ IRQ_Handler:
 	mrs r0, spsr				/* 读取spsr寄存器 */
 	push {r0}					/* 保存spsr寄存器 */
 
-	mrc p15, 4, r1, c15, c0, 0 /* 从CP15的C0寄存器内的值到R1寄存器中
+	mrc p15, 4, r1, c15, c0, 0 /* 从CP15的C0寄存器内的值到R1寄存器中  读取CP15的CBAR寄存器-保存了GIC控制器的寄存器组首地址)
 								* 参考文档ARM Cortex-A(armV7)编程手册V4.0.pdf P49
 								* Cortex-A7 Technical ReferenceManua.pdf P68 P138
 								*/							
 	add r1, r1, #0X2000			/* GIC基地址加0X2000，也就是GIC的CPU接口端基地址 */
 	ldr r0, [r1, #0XC]			/* GIC的CPU接口端基地址加0X0C就是GICC_IAR寄存器，
-								 * GICC_IAR寄存器保存这当前发生中断的中断号，我们要根据
+								 * GICC_IAR寄存器保存这当前发生中断的中断号，我们要根据  （从bit0-9中读取中断ID）
 								 * 这个中断号来绝对调用哪个中断服务函数
 								 */
 	push {r0, r1}				/* 保存r0,r1 */
