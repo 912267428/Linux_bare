@@ -8,7 +8,9 @@
 		"files.associations": {
 			"bsp_led.h": "c",
 			"bsp_beep.h": "c",
-			"imx6ul.h": "c"
+			"imx6ul.h": "c",
+			"mcimx6y2.h": "c",
+			"bsp_exit.h": "c"
 		}
 	}
 }

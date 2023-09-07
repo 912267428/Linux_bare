@@ -1,5 +1,8 @@
 #include "bsp_int.h"
 
+/* 中断嵌套计数器 */
+static unsigned int irqNesting;
+
 //中断处理函数表
 static sys_irq_handle_t irqTable[NUMBER_OF_INT_VECTORS];
 
@@ -35,9 +38,23 @@ void int_init(void)
 }
 
 /*具体的中断处理函数。汇编的IRQ_Handler会调用它*/
-void system_irqhandler(unsigned int gicciar)
+void system_irqhandler(unsigned int giccIar)
 {
-    
+    uint32_t intNum = giccIar & 0x3FFUL;
+
+    /* 检查中断号是否符合要求 */
+   if ((intNum == 1023) || (intNum >= NUMBER_OF_INT_VECTORS))
+   {
+	 	return;
+   }
+
+   irqNesting++;	/* 中断嵌套计数器加一 */
+
+   /* 根据传递进来的中断号，在irqTable中调用确定的中断服务函数*/
+   irqTable[intNum].irqHandler(intNum, irqTable[intNum].userParam);
+ 
+   irqNesting--;	/* 中断执行完成，中断嵌套寄存器减一 */
+
 }
 
 /*默认中断处理函数*/
