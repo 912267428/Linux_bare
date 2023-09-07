@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"bsp_led.h": "c",
+			"bsp_beep.h": "c",
+			"imx6ul.h": "c"
+		}
+	}
+}
