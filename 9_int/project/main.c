@@ -4,6 +4,7 @@
 #include "bsp_led.h"
 #include "bsp_beep.h"
 #include "bsp_key.h"
+#include "bsp_int.h"
 
 int main(void)
 {
@@ -12,6 +13,7 @@ int main(void)
     unsigned char led_state = OFF;
     unsigned char beep_state = OFF;
 
+    int_init();
     imx6u_clkinit();
     clk_enable();
     led_init();
