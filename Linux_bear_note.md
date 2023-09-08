@@ -25,6 +25,10 @@
 | GICC_PMR         |                            | 决定使用几级优先 级<br />只有低8位有效，最多可以设置256个优先级，我们需要设置32个优先级，GICC_PMR 要设置为 0b11111000=0xF8 |
 | GICC_BPR         |                            | 设置抢占优先级和子优先级各占多少位<br />低三位有效，一般直接设置位010 |
 | GICD_IPRIORITYR  |                            | 共有512个，用来设置某个中断 ID 的中断优先级                  |
+| EPICTx_CR        | EPIT定时器配置寄存器       | 用来配置EPIT，CLKSRC(bit25:24)，选择时钟源，PRESCALAR(bit15:4)位，设置分频值。？<br />EPIT1_CR 的 RLD(bit3)位，设置 EPTI1 的工作模式。见开发指南466 |
+| EPITx_SR         | 中断标志位                 | R 只有一个位有效，那就是 OCIF(bit0)，这个位是比较中断标志位。中断发生之后需要**手动写1清零**。 |
+| EPITx_LR         | 加载寄存器                 | 设置计数器的加载值。计数器每次计时到0以后就会读取LR寄存器的值重新开始计时。 |
+| EPITx_CMPR       | 比较寄存器                 | 当计数器的值和CMPR相等以后就会产生比较中断。                 |
 
 
 
@@ -471,3 +475,27 @@ bsp_int通用的中断驱动中有int_init初始化中断函数，在需要使�
    - 利用GIC_EnableIRQ，使能IO口对应的中断号
    - 编写中断处理函数，并用system_register_irqhandler函数将中断处理函数注册到相应的中断id中。
    - 使能gpio口中断，gpio_enableint(GPIO1, 18);
+
+## epit定时器
+
+Enhanced Periodic Interrupt Timer，直译过来就是增强的周期中断定时器，主要是完成周期性中断定时。I.MX6U 的 EPIT 定时器只是完成周期性中 断定时的，仅此一项功能，至于stem32的定时器中集成的输入捕获、PWM输出等功能在I.MX6U上有专门的模块。
+
+EPIT 是一个 32 位定时器，在处理器几乎不用介入的情况下提供精准的定时中断，软件使 能以后 EPIT 就会开始运行，EPIT 定时器有如下特点：
+
+1. 时钟源可选的 32 位**向下**计数器。
+2. 12 位的分频值。
+3. 当计数值和比较值相等的时候产生中断。
+
+EPIT结构图：
+
+![image-20230908123130200](Image\11.png)
+
+### EPIT两种工作模式：
+
+#### set-and-forget 模式：
+
+将EPITx_CR寄存器的RLD(bit:3)置一时EPIT处于set-and-forget 模式，在此模式下 EPIT 的计数器从加载寄存器 EPITx_LR 中获取初始值，不能直接向计数器寄存器写入数据。不管什么时候，只要计数器计数到 0，那么就会从加载寄存器 EPITx_LR 中重新 加载数据到计数器中，周而复始。
+
+#### free-running 模式：
+
+EPITx_CR 寄存器的 RLD (bit:3)位清零的时候 EPIT 工作在free-running 模式，当计数 器计数到0以后会重新从0XFFFFFFFF开始计数，并不是从加载寄存器EPITx_LR中获取数据。
