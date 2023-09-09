@@ -16,8 +16,8 @@ void led_init(void)
     //初始化 GPIO,GPIO1_IO03 设置为输出
     GPIO1->GDIR |= (1 << 3);
 
-    //设置 GPIO1_IO03 输出低电平，打开 LED0
-    GPIO1->DR &= ~(1 << 3);
+    //设置 GPIO1_IO03 输出低电平，关闭 LED0
+    GPIO1->DR |= (1 << 3);
 }
 
 /**

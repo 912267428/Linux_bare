@@ -1,5 +1,5 @@
 CROSS_COMPILE 	?= arm-linux-gnueabihf-
-TARGET		  	?= int
+TARGET		  	?= epit
 
 CC 				:= $(CROSS_COMPILE)gcc
 LD				:= $(CROSS_COMPILE)ld
@@ -14,7 +14,8 @@ INCDIRS 		:= imx6ul \
 				   bsp/gpio \
 				   bsp/key \
 				   bsp/int \
-				   bsp/exit
+				   bsp/exit \
+				   bsp/epittimer
 				   			   
 SRCDIRS			:= project \
 				   bsp/clk \
@@ -24,7 +25,8 @@ SRCDIRS			:= project \
 				   bsp/gpio \
 				   bsp/key \
 				   bsp/int \
-				   bsp/exit
+				   bsp/exit \
+				   bsp/epittimer
 				   
 				   
 INCLUDE			:= $(patsubst %, -I %, $(INCDIRS))

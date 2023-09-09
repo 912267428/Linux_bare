@@ -6,6 +6,7 @@
 #include "bsp_key.h"
 #include "bsp_int.h"
 #include "bsp_exit.h"
+#include "bsp_epittimer.h"
 
 int main(void)
 {
@@ -18,12 +19,11 @@ int main(void)
     beep_init();
     key_init();
     exit_init();
+    epit1_init(0, 50);
 
     while (1)
     {
-        led_state = !led_state;
-        led_switch(LED0, led_state);
-        delay(50);
+        delay(500);
     }
     
 }
