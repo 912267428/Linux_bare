@@ -45,20 +45,28 @@ int main(void)
 
         if(is_equal(str, "open_beep#") == 0)
         {
+            puts("收到指令，即将打开蜂鸣器\r\n\r\n");
             beep_switch(ON);
+            continue;
         }
         if(is_equal(str, "close_beep#") == 0)
         {
+            puts("收到指令，即将关闭蜂鸣器\r\n\r\n");
             beep_switch(OFF);
+            continue;
         }
 
         if(is_equal(str, "open_led#") == 0)
         {
+            puts("收到指令，即将打开led灯\r\n\r\n");
             led_switch(LED0, ON);
+            continue;
         }
         if(is_equal(str, "close_led#") == 0)
         {
+            puts("收到指令，即将关闭led灯\r\n\r\n");
             led_switch(LED0, OFF);
+            continue;
         }
 
     }
