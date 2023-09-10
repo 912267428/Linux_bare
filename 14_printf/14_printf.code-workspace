@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"bsp_led.h": "c",
+			"bsp_beep.h": "c",
+			"bsp_clk.h": "c",
+			"bsp_epittimer.h": "c",
+			"imx6ul.h": "c",
+			"stdio.h": "c",
+			"bsp_key_filter.h": "c",
+			"bsp_uart.h": "c"
+		}
+	}
+}
