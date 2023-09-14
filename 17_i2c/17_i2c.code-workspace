@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"bsp_led.h": "c",
+			"bsp_beep.h": "c",
+			"bsp_clk.h": "c",
+			"bsp_epittimer.h": "c",
+			"imx6ul.h": "c",
+			"bsp_lcd.h": "c",
+			"stdio.h": "c",
+			"bsp_ap3216c.h": "c",
+			"bsp_i2c.h": "c",
+			"bsp_delay.h": "c"
+		}
+	}
+}
