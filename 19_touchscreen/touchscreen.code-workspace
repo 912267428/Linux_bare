@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"bsp_key.h": "c",
+			"bsp_gt9147.h": "c",
+			"bsp_ft5xx6.h": "c"
+		}
+	}
+}
